@@ -1,5 +1,4 @@
-﻿using Home_Project.DataModel;
-using Home_Project.Meneger;
+﻿using Home_Project.Enums;
 
 namespace Home_Project
 {
@@ -7,18 +6,26 @@ namespace Home_Project
     {
         static void Main(string[] args)
         {
-           AuthorMeneger authormeneger = new AuthorMeneger();
-            Author author= new Author();
-            BookMeneger bookmeneger= new BookMeneger();
-            Book book = new Book();
 
+            var menus = Enum.GetValues(typeof(MenuType));
 
-            authormeneger.Add(author);
-
-            foreach (var item in authormeneger) 
+            foreach (var item in menus)
             {
-                Console.WriteLine(item);
+                int id = Convert.ToByte(item);
+                Console.WriteLine($"{id.ToString().PadLeft(2,'0')}:{item}");
             }
+           //AuthorMeneger authormeneger = new AuthorMeneger();
+           // Author author= new Author();
+           // BookMeneger bookmeneger= new BookMeneger();
+           // Book book = new Book();
+
+
+           // authormeneger.Add(author);
+
+           // foreach (var item in authormeneger) 
+           // {
+           //     Console.WriteLine(item);
+           // }
 
 
         }

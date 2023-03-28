@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Home_Project.genre
 {
-    public enum enumgenre
+    public enum Genre :byte
     {
         Dram=1,
         Sevgi,
