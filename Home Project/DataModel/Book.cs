@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Home_Project.DataModel
 {
-   public class Book
+   public class Book: IEquatable<Book>
     {
         int counter = 0;
         public Book()
@@ -19,6 +19,12 @@ namespace Home_Project.DataModel
         public int Authorld { get; set; }  
         public int PageCount { get; set; }
         public decimal Price { get; set; }
+
+        public bool Equals(Book? other)
+        {
+            return other?.Id == this.Id;
+        }
+
         public override string ToString()
         {
             return $"{Id}:Kitabin adi-{Name} kitabin sehife sayi-{PageCount} kitabin qiymeti-{Price} kitab haqqinda-{Authorld}";

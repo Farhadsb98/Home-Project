@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Home_Project.DataModel
 {
-  public class Author
+  public class Author :IEquatable<Author>
     {
         static int counter = 0;
         public Author()
@@ -17,6 +17,12 @@ namespace Home_Project.DataModel
         public int Id { get; private set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+
+        public bool Equals(Author? other)
+        {
+            return   other?.Id == this.Id;
+
+        }
 
         public override string ToString()
         {
