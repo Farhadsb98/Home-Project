@@ -8,11 +8,14 @@ namespace Home_Project.genre
 {
     public enum Genre :byte
     {
-        Dram=1,
-        Sevgi,
-        Qorxu,
-        Fantastik,
-        Din,
+        Fantasy=1,
+        Mystery,
+        Thriller,
+        Romance,
+        Westerns,
+        Horror,
+        Children,
+        Adventure,
 
     }
 }
