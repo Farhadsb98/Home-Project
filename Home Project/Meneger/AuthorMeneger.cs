@@ -70,6 +70,9 @@ namespace Home_Project.Meneger
             return this.GetEnumerator();
         }
 
-       
+        public Author getbyid(int id)
+        {
+            return Array.Find(data, item => item.Id == id);
+        }
     }
 }

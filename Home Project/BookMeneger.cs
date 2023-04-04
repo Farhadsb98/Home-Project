@@ -4,6 +4,8 @@ using System.Collections;
 
 namespace Home_Project.Meneger
 {
+
+
     public class BookMeneger : IMeneger<Book>, IEnumerable<Book>
     {
         Book[]data=new Book[0];
@@ -60,6 +62,9 @@ namespace Home_Project.Meneger
            return GetEnumerator();
         }
 
-     
+        public Book getbyid(int id)
+        {
+            return Array.Find(data, item => item.Id == id);
+        }
     }
 }

@@ -9,5 +9,6 @@
         void Edit(T item);
         
         void Remove(T item);
+        T getbyid(int id);
     }
 }

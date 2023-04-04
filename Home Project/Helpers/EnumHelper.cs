@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Home_Project.Helpers
 {
-    public static class EnumHelper
+    public static partial class Helper
     {
         public static T ReadEnum<T>(string caption)
         {
