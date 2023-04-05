@@ -13,22 +13,73 @@ namespace Home_Project
         {
             AuthorMeneger authormeneger= new AuthorMeneger();
             BookMeneger bookmeneger= new BookMeneger();
+            int id;
 
             Console.WriteLine("### Edeceyiniz emeliyyati daxil edin ###");
             var selectMenu = Helper.ReadEnum<MenuType>("Menu:");
+           
+            l1:
             switch (selectMenu)
             {
                 case MenuType.AuthorAdd:
                     var author = new Author();
                     author.Name = Helper.ReadString("Muellifin adi:");
                     authormeneger.Add(author);
-                    break;
+
+                    Console.WriteLine("### Edeceyiniz emeliyyati daxil edin ###");
+                     selectMenu = Helper.ReadEnum<MenuType>("Menu:");
+                    goto l1;
                 case MenuType.AuthorEdit:
-                    break;
+                    Console.WriteLine("Redakte etmek istediyiniz muellifi secin");
+                    foreach (var item in authormeneger)
+                    {
+                        Console.WriteLine(item);
+
+                    }
+                    id = Helper.ReadInt("Muellifin Id-si:");
+                    author=authormeneger.getbyid(id);
+                    if (author==null)
+                    {
+                        Console.Clear();
+                        goto case MenuType.AuthorEdit;
+
+                    }
+                    author.Name = Helper.ReadString("Muellifin adi:");
+                    Console.Clear();
+                    goto case MenuType.AuthorGetAll;
+
+
+                    
                 case MenuType.AuthorRemove:
-                    break;
+                    Console.WriteLine("Silmek istediyiniz muellifi secin");
+                    foreach (var item in authormeneger)
+                    {
+                        Console.WriteLine(item);
+
+                    }
+                    id = Helper.ReadInt("Muellif ID");
+                    author = authormeneger.getbyid(id);
+                    if (author == null)
+                    {
+                        Console.Clear();
+                        goto case MenuType.AuthorRemove;
+
+
+                    }
+                    authormeneger.Remove(author);
+                    Console.Clear();
+                    goto case MenuType.AuthorGetAll;
+
                 case MenuType.AuthorGetAll:
-                    break;
+                    foreach (var item in authormeneger)
+                    {
+                        Console.WriteLine(item);
+
+                    }
+                    Console.WriteLine("### Edeceyiniz emeliyyati daxil edin ###");
+                    selectMenu = Helper.ReadEnum<MenuType>("Menu:");
+
+                    goto l1;
                 case MenuType.AuthorFindbyName:
                     break;
                 case MenuType.AuthorGetbyId:
@@ -39,6 +90,24 @@ namespace Home_Project
                     bookmeneger.Add(book);
                     break;
                 case MenuType.BookEdit:
+                    Console.WriteLine("Redakte etmek istediyiniz kitabi secin");
+                    foreach (var item in bookmeneger)
+                    {
+                        Console.WriteLine(item);
+
+                    }
+                    id = Helper.ReadInt("Muellif ID");
+                    book = bookmeneger.getbyid(id);
+                    if (book == null)
+                    {
+                        Console.Clear();
+                        goto case MenuType.BookEdit;
+
+                    }
+                    book.Name = Helper.ReadString("Kitabin adi:");
+                    Console.Clear();
+                    goto case MenuType.BookGetAll;
+
                     break;
                 case MenuType.BookRemove:
                     break;
