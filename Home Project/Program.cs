@@ -30,6 +30,7 @@ namespace Home_Project
                      selectMenu = Helper.ReadEnum<MenuType>("Menu:");
                     goto l1;
                 case MenuType.AuthorEdit:
+                   
                     Console.WriteLine("Redakte etmek istediyiniz muellifi secin");
                     foreach (var item in authormeneger)
                     {
@@ -38,12 +39,12 @@ namespace Home_Project
                     }
                     id = Helper.ReadInt("Muellifin Id-si:");
                     author=authormeneger.getbyid(id);
-                    if (author==null)
-                    {
-                        Console.Clear();
-                        goto case MenuType.AuthorEdit;
+                    //if (author==null)
+                    //{
+                    //    Console.Clear();
+                    //    goto case MenuType.AuthorEdit;
 
-                    }
+                    //}
                     author.Name = Helper.ReadString("Muellifin adi:");
                     Console.Clear();
                     goto case MenuType.AuthorGetAll;
@@ -71,6 +72,7 @@ namespace Home_Project
                     goto case MenuType.AuthorGetAll;
 
                 case MenuType.AuthorGetAll:
+                    Console.Clear();
                     foreach (var item in authormeneger)
                     {
                         Console.WriteLine(item);

@@ -27,7 +27,7 @@ namespace Home_Project.Meneger
             found.Name = item.Name;    
         }
 
-        public void GetALl(Author item)
+        public void GetAll(Author item)
         {
             throw new NotImplementedException();
         }
@@ -74,5 +74,7 @@ namespace Home_Project.Meneger
         {
             return Array.Find(data, item => item.Id == id);
         }
+
+       
     }
 }

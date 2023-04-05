@@ -29,7 +29,7 @@ namespace Home_Project.Meneger
             found.Price= item.Price;
             found.Genre= item.Genre;
         }
-        public void GetALl(Book item)
+        public void GetAll(Book item)
         {
             throw new NotImplementedException();
         }
@@ -66,5 +66,7 @@ namespace Home_Project.Meneger
         {
             return Array.Find(data, item => item.Id == id);
         }
+
+       
     }
 }

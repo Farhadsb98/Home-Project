@@ -4,7 +4,7 @@
     {
         void Add(T item);
 
-        void GetALl(T item);
+        void GetAll(T item);
 
         void Edit(T item);
         
