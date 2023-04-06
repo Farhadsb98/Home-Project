@@ -38,13 +38,21 @@ namespace Home_Project
 
                     }
                     id = Helper.ReadInt("Muellifin Id-si:");
-                    author=authormeneger.getbyid(id);
-                    //if (author==null)
-                    //{
-                    //    Console.Clear();
-                    //    goto case MenuType.AuthorEdit;
+                    if (id==0)
+                    {
+                        Console.WriteLine("### Edeceyiniz emeliyyati daxil edin ###");
+                        selectMenu = Helper.ReadEnum<MenuType>("Menu:");
 
-                    //}
+                        goto l1;
+
+                    }
+                    author=authormeneger.getbyid(id);
+                    if (author == null)
+                    {
+                        Console.Clear();
+                        goto case MenuType.AuthorEdit;
+
+                    }
                     author.Name = Helper.ReadString("Muellifin adi:");
                     Console.Clear();
                     goto case MenuType.AuthorGetAll;
@@ -85,12 +93,34 @@ namespace Home_Project
                 case MenuType.AuthorFindbyName:
                     break;
                 case MenuType.AuthorGetbyId:
-                    break;
+                    id = Helper.ReadInt("Muellifin adi");
+                    if (id == 0)
+                    {
+                        Console.WriteLine("### Edeceyiniz emeliyyati daxil edin ###");
+                        selectMenu = Helper.ReadEnum<MenuType>("Menu:");
+
+                        goto l1;
+
+                    }
+                    author = authormeneger.getbyid(id);
+
+                    if (author == null)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Muellif tapilmadi...");
+                        goto case MenuType.AuthorGetbyId;
+
+
+                    }
+                    Console.WriteLine(author);
+                    goto l1;
                 case MenuType.BookAdd:
                     var book = new Book();
                     book.Name = Helper.ReadString("Kitabin adi:");
                     bookmeneger.Add(book);
-                    break;
+                    Console.WriteLine("### Edeceyiniz emeliyyati daxil edin ###");
+                    selectMenu = Helper.ReadEnum<MenuType>("Menu:");
+                    goto l1;
                 case MenuType.BookEdit:
                     Console.WriteLine("Redakte etmek istediyiniz kitabi secin");
                     foreach (var item in bookmeneger)
@@ -110,15 +140,62 @@ namespace Home_Project
                     Console.Clear();
                     goto case MenuType.BookGetAll;
 
-                    break;
+                   
                 case MenuType.BookRemove:
-                    break;
+                    Console.WriteLine("Silmek istediyiniz Kitabi secin");
+                    foreach (var item in bookmeneger)
+                    {
+                        Console.WriteLine(item);
+
+                    }
+                    id = Helper.ReadInt("Kitabin Id-si");
+                    book = bookmeneger.getbyid(id);
+                    if (book == null)
+                    {
+                        Console.Clear();
+                        goto case MenuType.BookRemove;
+
+
+                    }
+                    bookmeneger.Remove(book);
+                    Console.Clear();
+                    goto case MenuType.BookGetAll;
+                    
                 case MenuType.BookGetAll:
-                    break;
+                    Console.Clear();
+                    foreach (var item in bookmeneger)
+                    {
+                        Console.WriteLine(item);
+
+                    }
+                    Console.WriteLine("### Edeceyiniz emeliyyati daxil edin ###");
+                    selectMenu = Helper.ReadEnum<MenuType>("Menu:");
+                    goto l1;
                 case MenuType.BookFindbyName:
                     break;
                 case MenuType.BookGetbyId:
-                    break;
+                    id = Helper.ReadInt("kitabin adi");
+                    if (id == 0)
+                    {
+                        Console.WriteLine("### Edeceyiniz emeliyyati daxil edin ###");
+                        selectMenu = Helper.ReadEnum<MenuType>("Menu:");
+
+                        goto l1;
+
+                    }
+                    book = bookmeneger.getbyid(id);
+
+                    if (book == null)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("kitabin tapilmadi...");
+                        goto case MenuType.BookGetbyId;
+
+
+                    }
+                    Console.WriteLine(book);
+                    goto l1;
+                    
                 default:
                     break;
             }

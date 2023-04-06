@@ -20,10 +20,10 @@ namespace Home_Project.Helpers
             Console.ForegroundColor = oldcolor;
             income = Console.ReadLine();
 
-            //if (AllowIsNullOrEmpty = false || string.IsNullOrWhiteSpace(income)) ;
-            //{
-            //    goto l1;
-            //}
+            if (AllowIsNullOrEmpty = false || string.IsNullOrWhiteSpace(income)) 
+            {
+                goto l1;
+            }
             return income;
         }
         public static int  ReadInt(string caption, int min=0,int max=0)
@@ -45,7 +45,7 @@ namespace Home_Project.Helpers
             Console.ForegroundColor = oldcolor;
             income = Console.ReadLine();
 
-            if (!int.TryParse(income, out int value) || (min != 0 && max != 0 && (value < min && value > max))) ;
+            if (!int.TryParse(income, out int value) || (min != 0 && max != 0 && (value < min && value > max))) 
             {
                 goto l1;
             }
