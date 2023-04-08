@@ -9,6 +9,9 @@
         void Edit(T item);
         
         void Remove(T item);
+        void Exit(T item);
+
         T getbyid(int id);
+        T[] FindByName(string name);
     }
 }

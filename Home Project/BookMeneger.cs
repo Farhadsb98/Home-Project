@@ -38,7 +38,7 @@ namespace Home_Project.Meneger
             int index = Array.IndexOf(data, item);
             if (index == -1)
             {
-                return;
+                
                 int len = data.Length - 1;
                 for (int i = index; i < len; i++)
                 {
@@ -67,6 +67,14 @@ namespace Home_Project.Meneger
             return Array.Find(data, item => item.Id == id);
         }
 
-       
+        public void Exit(Book item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Book[] FindByName(string name)
+        {
+            return Array.FindAll(data, item => item.Name.StartsWith(name));
+        }
     }
 }

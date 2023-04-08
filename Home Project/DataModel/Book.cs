@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Home_Project.DataModel
 {
-   public class Book: IEquatable<Book>
+   public class Book:  IEquatable<Book>
     {
         int counter = 0;
         public Book()
@@ -31,8 +31,9 @@ namespace Home_Project.DataModel
 
         public override string ToString()
         {
-            return $"{Id}:Kitabin adi-{Name} kitabin sehife sayi-{PageCount} kitabin qiymeti-{Price} kitab haqqinda-{Authorld}";
-            
+            return $"{Id}:Kitabin adi:{Name}\n kitabin sehife sayi:{PageCount} \n kitabin qiymeti:{Price}-Manat";
+
+
         }
     }
 }

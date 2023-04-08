@@ -21,6 +21,7 @@ namespace Home_Project.Enums
         BookGetAll,
         BookFindbyName,
         BookGetbyId,
+        Exit
 
     }
 }

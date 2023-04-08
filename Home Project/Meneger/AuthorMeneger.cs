@@ -46,13 +46,14 @@ namespace Home_Project.Meneger
             if (index == -1)
             {
                 return;
+            }
                 int len=data.Length-1;
                 for (int i = index; i < len; i++)
                 {
                     data[i] = data[i+1];
                 }
                 Array.Resize(ref data, len);
-            }
+            
         }
 
         public IEnumerator<Author> GetEnumerator()
@@ -75,6 +76,15 @@ namespace Home_Project.Meneger
             return Array.Find(data, item => item.Id == id);
         }
 
-       
+        public void Exit(Author item)
+        {
+            Console.WriteLine("Cixish ucun her hansi duymeni sixin!");
+            Console.ReadKey();
+        }
+
+        public Author[] FindByName(string name)
+        {
+           return Array.FindAll(data, item => item.Name.StartsWith( name));
+        }
     }
 }

@@ -3,17 +3,23 @@ using Home_Project.Enums;
 using Home_Project.genre;
 using Home_Project.Helpers;
 using Home_Project.Meneger;
+using System.Data;
 
 namespace Home_Project
 {
     internal class Program
     {
+       
         static void Main(string[] args)
 
         {
+            
+            //PrintMenu();
+
+            //return
             AuthorMeneger authormeneger= new AuthorMeneger();
             BookMeneger bookmeneger= new BookMeneger();
-            int id;
+            int id=0;
 
             Console.WriteLine("### Edeceyiniz emeliyyati daxil edin ###");
             var selectMenu = Helper.ReadEnum<MenuType>("Menu:");
@@ -22,15 +28,17 @@ namespace Home_Project
             switch (selectMenu)
             {
                 case MenuType.AuthorAdd:
+                    Console.Clear();
                     var author = new Author();
                     author.Name = Helper.ReadString("Muellifin adi:");
+                    author.Surname = Helper.ReadString("Muellifin Soyadi:");
                     authormeneger.Add(author);
 
                     Console.WriteLine("### Edeceyiniz emeliyyati daxil edin ###");
                      selectMenu = Helper.ReadEnum<MenuType>("Menu:");
                     goto l1;
                 case MenuType.AuthorEdit:
-                   
+                   Console.Clear();
                     Console.WriteLine("Redakte etmek istediyiniz muellifi secin");
                     foreach (var item in authormeneger)
                     {
@@ -54,19 +62,23 @@ namespace Home_Project
 
                     }
                     author.Name = Helper.ReadString("Muellifin adi:");
+                    author.Surname = Helper.ReadString("Muellifin Soyadi:");
                     Console.Clear();
                     goto case MenuType.AuthorGetAll;
 
 
                     
                 case MenuType.AuthorRemove:
+                    Console.Clear() ;
                     Console.WriteLine("Silmek istediyiniz muellifi secin");
                     foreach (var item in authormeneger)
                     {
                         Console.WriteLine(item);
 
                     }
-                    id = Helper.ReadInt("Muellif ID");
+
+                    id = Helper.ReadInteger("Author Id:", true, authormeneger.Min(x => x.Id), authormeneger.Max(x => x.Id));
+                 
                     author = authormeneger.getbyid(id);
                     if (author == null)
                     {
@@ -75,9 +87,12 @@ namespace Home_Project
 
 
                     }
-                    authormeneger.Remove(author);
+                   authormeneger.Remove(author);
                     Console.Clear();
                     goto case MenuType.AuthorGetAll;
+                    
+                  
+                
 
                 case MenuType.AuthorGetAll:
                     Console.Clear();
@@ -91,9 +106,20 @@ namespace Home_Project
 
                     goto l1;
                 case MenuType.AuthorFindbyName:
-                    break;
+                    string name = Helper.ReadString("Axtardiginiz adi daxil edin:");
+                    var data = authormeneger.FindByName(name);
+                    if (data.Length == 0)
+                    {
+                        Console.WriteLine("Tapilmadi");
+                    }
+                    foreach (var item in data)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    goto l1;
+                   
                 case MenuType.AuthorGetbyId:
-                    id = Helper.ReadInt("Muellifin adi");
+                    id = Helper.ReadInt("Axtardiginiz Sira nomresini daxil edin:");
                     if (id == 0)
                     {
                         Console.WriteLine("### Edeceyiniz emeliyyati daxil edin ###");
@@ -115,8 +141,29 @@ namespace Home_Project
                     Console.WriteLine(author);
                     goto l1;
                 case MenuType.BookAdd:
+                  
+                    Console.Clear();
+
+                    foreach (var item in authormeneger)
+                    {
+                        Console.WriteLine($"{item.Id}:{item.Name}{item.Surname}");
+                    }
+                l5:
+                    id = Helper.ReadInteger("Author Id:", true, authormeneger.Min(x => x.Id), authormeneger.Max(x => x.Id));
+
+                    if (id == 0)
+                    {
+                        goto l5;
+                    }
+                  
+
                     var book = new Book();
+                    book.Authorld =id;
+                    book.Genre = Helper.ReadEnum<Genre>("Janri Secin:");
                     book.Name = Helper.ReadString("Kitabin adi:");
+                    book.PageCount = Helper.ReadInt("Kitabin Sehife sayi");
+                    book.Price = Helper.ReadDecimal("kitabin Qiymeti:");
+                    
                     bookmeneger.Add(book);
                     Console.WriteLine("### Edeceyiniz emeliyyati daxil edin ###");
                     selectMenu = Helper.ReadEnum<MenuType>("Menu:");
@@ -165,14 +212,25 @@ namespace Home_Project
                     Console.Clear();
                     foreach (var item in bookmeneger)
                     {
-                        Console.WriteLine(item);
+                       var aut=  authormeneger.First(x => x.Id == item.Id);
+                        Console.WriteLine($"{item} \n Muellifin adi-{aut.Name} \n Muellifin soyadi {aut.Surname}");
 
                     }
                     Console.WriteLine("### Edeceyiniz emeliyyati daxil edin ###");
                     selectMenu = Helper.ReadEnum<MenuType>("Menu:");
                     goto l1;
                 case MenuType.BookFindbyName:
-                    break;
+                    string name1=Helper.ReadString("Axtardiginiz adi daxil edin:");
+                    var data1 = bookmeneger.FindByName(name1);
+                    if (data1.Length==0)
+                    {
+                        Console.WriteLine("Tapilmadi");
+                    }
+                    foreach (var item in data1)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    goto l1;
                 case MenuType.BookGetbyId:
                     id = Helper.ReadInt("kitabin adi");
                     if (id == 0)
@@ -195,8 +253,13 @@ namespace Home_Project
                     }
                     Console.WriteLine(book);
                     goto l1;
-                    
+                case MenuType.Exit:
+                    Console.WriteLine("Cixish ucun her hansi duymeni sixin!");
+                    Console.ReadKey();
+                    break;
+
                 default:
+                  
                     break;
             }
 
@@ -220,7 +283,18 @@ namespace Home_Project
             //     Console.WriteLine(item);
             // }
 
-
         }
+
+        //private static void PrintMenu()
+        //{
+        //    Console.WriteLine("============Menu===============");
+        //    foreach (var item in Enum.GetValues(typeof(MenuType)))
+        //    {
+        //        Console.WriteLine($"{(int)item}.{item}");
+        //    }
+        //    Console.WriteLine("============Menu===============");
+        //}
+
+
     }
 }

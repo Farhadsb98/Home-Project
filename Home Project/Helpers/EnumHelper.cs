@@ -10,6 +10,7 @@ namespace Home_Project.Helpers
     public static partial class Helper
     {
         public static T ReadEnum<T>(string caption)
+            where T : Enum
         {
             var menus = Enum.GetValues(typeof(T));
 
