@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Home_Project.Meneger
 {
-
+    [Serializable]
 
     public class BookMeneger : IMeneger<Book>, IEnumerable<Book>
     {
