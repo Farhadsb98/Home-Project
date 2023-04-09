@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Home_Project.DataModel
 {
+    [Serializable]
    public class Book:  IEquatable<Book>
     {
-        int counter = 0;
+        static int counter = 0;
         public Book()
         {
             counter++;

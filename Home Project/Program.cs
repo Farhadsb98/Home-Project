@@ -4,12 +4,13 @@ using Home_Project.genre;
 using Home_Project.Helpers;
 using Home_Project.Meneger;
 using System.Data;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Home_Project
 {
     internal class Program
     {
-       
+        const string databaseFile = "database.dat";
         static void Main(string[] args)
 
         {
@@ -20,7 +21,7 @@ namespace Home_Project
             AuthorMeneger authormeneger= new AuthorMeneger();
             BookMeneger bookmeneger= new BookMeneger();
             int id=0;
-
+            Book book;
             Console.WriteLine("### Edeceyiniz emeliyyati daxil edin ###");
             var selectMenu = Helper.ReadEnum<MenuType>("Menu:");
            
@@ -106,18 +107,7 @@ namespace Home_Project
 
                     goto l1;
                 case MenuType.AuthorFindbyName:
-                    string name = Helper.ReadString("Axtardiginiz adi daxil edin:");
-                    var data = authormeneger.FindByName(name);
-                    if (data.Length == 0)
-                    {
-                        Console.WriteLine("Tapilmadi");
-                    }
-                    foreach (var item in data)
-                    {
-                        Console.WriteLine(item);
-                    }
-                    goto l1;
-                   
+                    break;
                 case MenuType.AuthorGetbyId:
                     id = Helper.ReadInt("Axtardiginiz Sira nomresini daxil edin:");
                     if (id == 0)
@@ -157,7 +147,7 @@ namespace Home_Project
                     }
                   
 
-                    var book = new Book();
+                    book = new Book();
                     book.Authorld =id;
                     book.Genre = Helper.ReadEnum<Genre>("Janri Secin:");
                     book.Name = Helper.ReadString("Kitabin adi:");
@@ -220,17 +210,17 @@ namespace Home_Project
                     selectMenu = Helper.ReadEnum<MenuType>("Menu:");
                     goto l1;
                 case MenuType.BookFindbyName:
-                    string name1=Helper.ReadString("Axtardiginiz adi daxil edin:");
-                    var data1 = bookmeneger.FindByName(name1);
-                    if (data1.Length==0)
+                    string name=Helper.ReadString("Axtardiginiz adi daxil edin:");
+                    var data = bookmeneger.FindByName(name);
+                    if (data.Length==0)
                     {
                         Console.WriteLine("Tapilmadi");
                     }
-                    foreach (var item in data1)
+                    foreach (var item in data)
                     {
                         Console.WriteLine(item);
                     }
-                    goto l1;
+                   goto l1;
                 case MenuType.BookGetbyId:
                     id = Helper.ReadInt("kitabin adi");
                     if (id == 0)
@@ -253,7 +243,15 @@ namespace Home_Project
                     }
                     Console.WriteLine(book);
                     goto l1;
-                case MenuType.Exit:
+                case MenuType.SaveandExit:
+                    DataBase db=new DataBase();
+                    db.kitab = bookmeneger;
+                    db.Yazar = authormeneger;
+                    FileStream fileStream = File.Create(databaseFile);
+                    BinaryFormatter bf = new BinaryFormatter();
+                    bf.Serialize(fileStream, db);
+                    fileStream.Flush();
+                    fileStream.Close();
                     Console.WriteLine("Cixish ucun her hansi duymeni sixin!");
                     Console.ReadKey();
                     break;

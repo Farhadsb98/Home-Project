@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Home_Project.DataModel
 {
+    [Serializable]
   public class Author :IEquatable<Author>
     {
         static int counter = 0;
